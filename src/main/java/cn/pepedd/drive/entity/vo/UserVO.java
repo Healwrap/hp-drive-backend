@@ -21,9 +21,7 @@ import java.time.LocalDateTime;
 public class UserVO implements Serializable {
   private String username;
   private String nickname;
-  private String role;
-  private String phone;
-  private String email;
+  private String avatar;
   // 已全局配置时间格式化，亦可使用 @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd")的方式
   private LocalDateTime createTime;
 }

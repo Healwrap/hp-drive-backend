@@ -61,6 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     );
     // 2. 登录
     SaLoginModel loginModel = new SaLoginModel();
+    user.setPassword(null);
     loginModel.setExtra("userInfo", user);
     StpKit.USER.login(user.getId(), loginModel);
     return R.success(StpKit.USER.getTokenValue());
@@ -101,6 +102,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     // 2. 登录
     SaLoginModel loginModel = new SaLoginModel();
+    user.setPassword(null);
     loginModel.setExtra("userInfo", user);
     StpKit.USER.login(user.getId());
 

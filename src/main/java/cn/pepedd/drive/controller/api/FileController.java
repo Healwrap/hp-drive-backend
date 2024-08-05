@@ -1,8 +1,13 @@
 package cn.pepedd.drive.controller.api;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.pepedd.drive.common.satoken.StpType;
+import cn.pepedd.drive.entity.dto.MultipartHandshakeDTO;
 import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
 import cn.pepedd.drive.entity.result.R;
 import cn.pepedd.drive.service.FileService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +27,23 @@ public class FileController {
   @Resource
   private FileService fileService;
 
+  /**
+   * 小文件上传
+   *
+   * @param uploadDTO
+   * @return
+   */
+  @SaCheckLogin(type = StpType.USER)
   @PostMapping("/single/upload")
+  @ApiOperation("小文件上传")
   public R<Boolean> singleFileUpload(@Valid SingleFileUploadDTO uploadDTO) {
     return R.success(fileService.singleFileUpload(uploadDTO));
+  }
+
+  @SaCheckLogin(type = StpType.USER)
+  @PostMapping("/multipart/handshake")
+  @ApiOperation("大文件上传握手")
+  public R multipartHandshake(@Valid MultipartHandshakeDTO handshakeDTO) {
+    return R.success();
   }
 }

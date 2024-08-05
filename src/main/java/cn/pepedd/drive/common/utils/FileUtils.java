@@ -10,6 +10,13 @@ import java.security.MessageDigest;
  * @since 2024/8/2
  */
 public class FileUtils {
+  /**
+   * 计算文件的MD5值
+   *
+   * @param is
+   * @return
+   * @throws Exception
+   */
   public static String calculateFileMD5(InputStream is) throws Exception {
     MessageDigest digest = MessageDigest.getInstance("MD5");
     byte[] buffer = new byte[8192];
@@ -25,5 +32,13 @@ public class FileUtils {
       hexString.append(hex);
     }
     return hexString.toString();
+  }
+
+  public static String getFileExtension(String fileName) {
+    int dotIndex = fileName.lastIndexOf(".");
+    if (dotIndex == -1) {
+      return "";
+    }
+    return fileName.substring(dotIndex + 1);
   }
 }

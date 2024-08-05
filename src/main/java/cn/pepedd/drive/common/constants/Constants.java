@@ -10,7 +10,7 @@ public class Constants {
   /**
    * 验证码开关
    */
-  public static final boolean CAPTCHA_ENABLED = true;
+  public static final boolean CAPTCHA_ENABLED = false;
   /**
    * 验证码有效期（分钟）
    */

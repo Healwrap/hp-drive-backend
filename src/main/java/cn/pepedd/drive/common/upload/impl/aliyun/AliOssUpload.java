@@ -8,6 +8,7 @@ import cn.pepedd.drive.exception.BusinessException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @author pepedd864
  * @since 2024/5/31
  */
+@Slf4j
 @Component
 @ConditionalOnProperty(name = "storage.use", havingValue = "aliyun")
 public class AliOssUpload implements FileUpload {
@@ -104,6 +106,8 @@ public class AliOssUpload implements FileUpload {
         // 文件不存在，执行上传
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, filePath, inputStream);
         oss.putObject(putObjectRequest);
+      } else {
+        log.warn("文件：" + fileName + " AliyunOSS已上传过");
       }
     } catch (Exception e) {
       throw new BusinessException(ErrorCode.SYSTEM_ERROR, "上传文件失败" + e.getMessage());

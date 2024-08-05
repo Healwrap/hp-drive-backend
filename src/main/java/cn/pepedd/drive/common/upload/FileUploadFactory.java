@@ -23,17 +23,26 @@ public class FileUploadFactory {
   @Value("${storage.use}")
   private String storageUse;
 
+  /**
+   * 获取默认文件上传实现类
+   *
+   * @return
+   */
   public FileUploadProxy newInstance() {
-    switch (storageUse) {
-      case "tencent":
-        return new FileUploadProxy(tencentOssUpload);
-      case "aliyun":
-      default:
-        return new FileUploadProxy(aliOssUpload);
-    }
+    return getInstance(storageUse);
   }
 
+  /**
+   * 获取定义的文件上传实现类
+   *
+   * @param type
+   * @return
+   */
   public FileUploadProxy newInstance(String type) {
+    return getInstance(type);
+  }
+
+  private FileUploadProxy getInstance(String type) {
     switch (type) {
       case "tencent":
         return new FileUploadProxy(tencentOssUpload);

@@ -1,10 +1,13 @@
 package cn.pepedd.drive.entity.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -13,6 +16,7 @@ import lombok.Data;
  */
 @TableName(value ="tb_file")
 @Data
+@Builder
 public class File implements Serializable {
     /**
      *
@@ -53,7 +57,7 @@ public class File implements Serializable {
     /**
      * 文件的唯一编码，用于识别文件
      */
-    private Integer md5;
+    private String md5;
 
     /**
      * 存储类型（使用本地存储或者OSS服务，待定）
@@ -73,11 +77,13 @@ public class File implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     @TableField(exist = false)
