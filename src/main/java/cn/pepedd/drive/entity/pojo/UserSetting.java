@@ -10,9 +10,9 @@ import lombok.Data;
  * 设置表
  * @TableName sys_setting
  */
-@TableName(value ="sys_setting")
+@TableName(value ="tb_user_setting")
 @Data
-public class Setting implements Serializable {
+public class UserSetting implements Serializable {
     /**
      *
      */

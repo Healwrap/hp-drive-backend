@@ -22,6 +22,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class SingleFileUploadDTO implements Serializable {
   private Long parentId;
+  @NotBlank(message = "文件名不能为空")
+  private String fileName;
+  @NotBlank(message = "文件md5不能为空")
+  private String md5;
   @NotNull(message = "文件不能为空")
   private MultipartFile file;
   @NotBlank(message = "文件路径不能为空")

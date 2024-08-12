@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.pepedd.drive.mapper.SettingMapper">
 
-    <resultMap id="BaseResultMap" type="cn.pepedd.drive.entity.pojo.Setting">
+    <resultMap id="BaseResultMap" type="cn.pepedd.drive.entity.pojo.UserSetting">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="spaceSize" column="space_size" jdbcType="BIGINT"/>

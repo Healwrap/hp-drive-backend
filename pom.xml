@@ -55,22 +55,6 @@
             <artifactId>sa-token-jwt</artifactId>
             <version>${satoken.version}</version>
         </dependency>
-        <!--jwt-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.2</version>
-        </dependency>
         <!-- redis 缓存操作 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

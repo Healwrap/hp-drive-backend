@@ -7,7 +7,6 @@ import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
 import cn.pepedd.drive.entity.result.R;
 import cn.pepedd.drive.service.FileService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +26,13 @@ public class FileController {
   @Resource
   private FileService fileService;
 
+  @SaCheckLogin(type = StpType.USER)
+  @PostMapping("/single/handshake")
+  @ApiOperation("小文件上传握手")
+  public R<Boolean> singleFileHandleShake(@Valid SingleFileUploadDTO uploadDTO) {
+    return R.success(true);
+  }
+
   /**
    * 小文件上传
    *
@@ -40,6 +46,12 @@ public class FileController {
     return R.success(fileService.singleFileUpload(uploadDTO));
   }
 
+  /**
+   * 大文件上传握手
+   *
+   * @param handshakeDTO
+   * @return
+   */
   @SaCheckLogin(type = StpType.USER)
   @PostMapping("/multipart/handshake")
   @ApiOperation("大文件上传握手")

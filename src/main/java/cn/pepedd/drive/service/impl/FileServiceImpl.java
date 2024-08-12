@@ -39,6 +39,16 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File>
   }
 
   /**
+   * 握手，主要是确定文件是否已上传 并创建文件夹记录
+   * @param uploadDTO
+   * @return
+   */
+  public Boolean singleFileHandleShake(SingleFileUploadDTO uploadDTO) {
+
+    return false;
+  }
+
+  /**
    * 小文件上传
    *
    * @param uploadDTO
