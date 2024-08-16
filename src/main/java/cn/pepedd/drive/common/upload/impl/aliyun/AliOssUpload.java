@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +90,88 @@ public class AliOssUpload implements FileUpload {
     // 返回 urls 数组
     return urls;
   }
+
+  /**
+   * 创建分片上传任务
+   *
+   * @param fileMd5 将文件md5作为文件名
+   * @return 上传任务ID
+   */
+  public String initMultipart(String fileMd5) {
+    InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, fileMd5);
+    // 初始化分片。
+    InitiateMultipartUploadResult upresult = oss.initiateMultipartUpload(request);
+    return upresult.getUploadId();
+  }
+
+  /**
+   * 上传分片
+   *
+   * @param uploadPart 分片文件流
+   * @param uploadId   上传任务ID
+   * @param fileMd5    文件md5
+   * @param partNumber 分片序号
+   * @param partSize   分片大小
+   * @return
+   */
+  public PartETag uploadMultipart(InputStream uploadPart, String uploadId, String fileMd5, int partNumber, long partSize) {
+    UploadPartRequest request = new UploadPartRequest();
+    request.setUploadId(uploadId);
+    request.setPartSize(partSize);
+    request.setPartNumber(partNumber);
+    request.setKey(fileMd5);
+    request.setBucketName(bucketName);
+    request.setInputStream(uploadPart);
+    UploadPartResult uploadPartResult = oss.uploadPart(request);
+    return uploadPartResult.getPartETag();
+  }
+
+  /**
+   * 完成分片上传
+   * @param fileMd5
+   * @param uploadId
+   * @param partETags
+   */
+  public void completeMultipart(String fileMd5, String uploadId, List<PartETag> partETags) {
+    // 在执行完成分片上传操作时，需要提供所有有效的partETags。OSS收到提交的partETags后，会逐一验证每个分片的有效性。当所有的数据分片验证通过后，OSS将把这些分片组合成一个完整的文件。
+    CompleteMultipartUploadRequest completeMultipartUploadRequest =
+        new CompleteMultipartUploadRequest(bucketName, fileMd5, uploadId, partETags);
+    // 完成分片上传。
+    oss.completeMultipartUpload(completeMultipartUploadRequest);
+  }
+
+  /**
+   * 取消分片上传任务
+   *
+   * @param fileMd5
+   * @param uploadId
+   */
+  public void abortMultipart(String fileMd5, String uploadId) {
+    // 取消分片上传。
+    AbortMultipartUploadRequest abortMultipartUploadRequest =
+        new AbortMultipartUploadRequest(bucketName, fileMd5, uploadId);
+    oss.abortMultipartUpload(abortMultipartUploadRequest);
+  }
+
+  /**
+   * 列举出已上传的分片信息
+   *
+   * @param uploadId
+   * @param fileMd5
+   * @return
+   */
+  public PartListing listMultipart(String uploadId, String fileMd5) {
+    // 列举所有已上传的分片。
+    PartListing partListing;
+    ListPartsRequest listPartsRequest = new ListPartsRequest(bucketName, fileMd5, uploadId);
+    do {
+      partListing = oss.listParts(listPartsRequest);
+      // 指定List的起始位置，只有分片号大于此参数值的分片会被列出。
+      listPartsRequest.setPartNumberMarker(partListing.getNextPartNumberMarker());
+    } while (partListing.isTruncated());
+    return partListing;
+  }
+
 
   /**
    * 为网盘项目定制的上传方法
