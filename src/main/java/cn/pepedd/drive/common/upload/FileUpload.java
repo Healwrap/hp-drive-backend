@@ -1,7 +1,12 @@
 package cn.pepedd.drive.common.upload;
 
 import cn.pepedd.drive.common.upload.entity.OSSDirectoryNode;
+import com.aliyun.oss.model.PartETag;
+import com.aliyun.oss.model.PartListing;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * OSS文件上传接口
@@ -20,6 +25,7 @@ public interface FileUpload {
 
   /**
    * 为网盘项目定制的上传方法
+   *
    * @param fileName
    * @param file
    * @return
@@ -36,6 +42,7 @@ public interface FileUpload {
 
   /**
    * 生成文件树形结构
+   *
    * @return
    */
   OSSDirectoryNode list();

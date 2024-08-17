@@ -5,7 +5,9 @@ import cn.pepedd.drive.common.satoken.StpType;
 import cn.pepedd.drive.entity.dto.MultipartHandshakeDTO;
 import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
 import cn.pepedd.drive.entity.result.R;
+import cn.pepedd.drive.entity.vo.FileVO;
 import cn.pepedd.drive.service.FileService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +58,13 @@ public class FileController {
   @PostMapping("/multipart/handshake")
   @ApiOperation("大文件上传握手")
   public R multipartHandshake(@Valid MultipartHandshakeDTO handshakeDTO) {
+    return R.success();
+  }
+
+  @SaCheckLogin(type = StpType.USER)
+  @PostMapping("/list")
+  @ApiOperation("文件列表")
+  public R list(IPage page, Long dirId) {
     return R.success();
   }
 }

@@ -7,10 +7,12 @@ import cn.pepedd.drive.common.upload.FileUploadProxy;
 import cn.pepedd.drive.common.utils.FileUtils;
 import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
 import cn.pepedd.drive.entity.pojo.File;
+import cn.pepedd.drive.entity.vo.FileVO;
 import cn.pepedd.drive.exception.BusinessException;
 import cn.pepedd.drive.mapper.FileMapper;
 import cn.pepedd.drive.service.FileService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File>
 
   /**
    * 握手，主要是确定文件是否已上传 并创建文件夹记录
+   *
    * @param uploadDTO
    * @return
    */
@@ -124,6 +127,23 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File>
       throw new BusinessException(ErrorCode.SYSTEM_ERROR, "上传文件失败");
     }
     return true;
+  }
+
+  /**
+   * 列出文件列表，分页查询，根据目录id逐级查询
+   *
+   * @param page
+   * @param dirId
+   * @return
+   */
+  @Override
+  public IPage<FileVO> listFiles(IPage<FileVO> page, Long dirId) {
+    if (dirId == null) {
+      // 查询根目录，查询所有parentId=null的文件
+      LambdaQueryWrapper<File> queryWrapper = new LambdaQueryWrapper<File>().eq(File::getParentId, null);
+      this.page(page, queryWrapper);
+    }
+    return null;
   }
 }
 

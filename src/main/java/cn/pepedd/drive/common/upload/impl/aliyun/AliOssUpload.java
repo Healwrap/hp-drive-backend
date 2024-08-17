@@ -114,7 +114,7 @@ public class AliOssUpload implements FileUpload {
    * @param partSize   分片大小
    * @return
    */
-  public PartETag uploadMultipart(InputStream uploadPart, String uploadId, String fileMd5, int partNumber, long partSize) {
+  public PartETag uploadPart(InputStream uploadPart, String uploadId, String fileMd5, int partNumber, long partSize) {
     UploadPartRequest request = new UploadPartRequest();
     request.setUploadId(uploadId);
     request.setPartSize(partSize);
