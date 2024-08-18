@@ -5,7 +5,7 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.pepedd.drive.common.satoken.StpKit;
 import cn.pepedd.drive.common.satoken.StpType;
-import cn.pepedd.drive.entity.dto.LoginBodyDTO;
+import cn.pepedd.drive.entity.dto.userAuth.LoginBodyDTO;
 import cn.pepedd.drive.entity.result.R;
 import cn.pepedd.drive.service.AdminService;
 import io.swagger.annotations.ApiOperation;

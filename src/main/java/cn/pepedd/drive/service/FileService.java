@@ -1,6 +1,8 @@
 package cn.pepedd.drive.service;
 
-import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
+import cn.pepedd.drive.entity.dto.singlefile.SingleFileHandShakeDTO;
+import cn.pepedd.drive.entity.dto.singlefile.SingleFileUploadDTO;
+import cn.pepedd.drive.entity.page.FileListDTO;
 import cn.pepedd.drive.entity.pojo.File;
 import cn.pepedd.drive.entity.vo.FileVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -13,6 +15,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FileService extends IService<File> {
   /**
+   * 小文件上传握手
+   * 握手，主要是确定文件是否已上传 并创建文件夹记录
+   *
+   * @param fileHandShakeDTO
+   * @return
+   */
+  Long singleFileHandShake(SingleFileHandShakeDTO fileHandShakeDTO);
+
+  /**
    * 小文件上传
    *
    * @param uploadDTO
@@ -23,9 +34,8 @@ public interface FileService extends IService<File> {
   /**
    * 列出文件列表，分页查询，根据目录id逐级查询
    *
-   * @param page
-   * @param dirId
+   * @param fileListDTO
    * @return
    */
-  IPage<FileVO> listFiles(IPage<FileVO> page, Long dirId);
+  IPage<FileVO> listFiles(FileListDTO fileListDTO);
 }

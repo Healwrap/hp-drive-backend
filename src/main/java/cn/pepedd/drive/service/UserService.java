@@ -1,8 +1,8 @@
 package cn.pepedd.drive.service;
 
-import cn.pepedd.drive.entity.dto.LoginBodyDTO;
-import cn.pepedd.drive.entity.dto.RegisterBodyDTO;
-import cn.pepedd.drive.entity.dto.UserUpdateDTO;
+import cn.pepedd.drive.entity.dto.userAuth.LoginBodyDTO;
+import cn.pepedd.drive.entity.dto.userAuth.RegisterBodyDTO;
+import cn.pepedd.drive.entity.dto.userInfo.UserUpdateDTO;
 import cn.pepedd.drive.entity.pojo.User;
 import cn.pepedd.drive.entity.result.R;
 import cn.pepedd.drive.entity.vo.UserVO;

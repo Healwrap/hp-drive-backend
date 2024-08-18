@@ -2,14 +2,17 @@ package cn.pepedd.drive.controller.api;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.pepedd.drive.common.satoken.StpType;
-import cn.pepedd.drive.entity.dto.MultipartHandshakeDTO;
-import cn.pepedd.drive.entity.dto.SingleFileUploadDTO;
+import cn.pepedd.drive.entity.dto.multipartfile.MultipartHandshakeDTO;
+import cn.pepedd.drive.entity.dto.singlefile.SingleFileHandShakeDTO;
+import cn.pepedd.drive.entity.dto.singlefile.SingleFileUploadDTO;
+import cn.pepedd.drive.entity.page.FileListDTO;
 import cn.pepedd.drive.entity.result.R;
 import cn.pepedd.drive.entity.vo.FileVO;
 import cn.pepedd.drive.service.FileService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,11 +31,17 @@ public class FileController {
   @Resource
   private FileService fileService;
 
+  /**
+   * 小文件上传握手
+   *
+   * @param fileHandShakeDTO
+   * @return
+   */
   @SaCheckLogin(type = StpType.USER)
   @PostMapping("/single/handshake")
   @ApiOperation("小文件上传握手")
-  public R<Boolean> singleFileHandleShake(@Valid SingleFileUploadDTO uploadDTO) {
-    return R.success(true);
+  public R<Long> singleFileHandShake(@Valid SingleFileHandShakeDTO fileHandShakeDTO) {
+    return R.success(fileService.singleFileHandShake(fileHandShakeDTO));
   }
 
   /**
@@ -61,10 +70,16 @@ public class FileController {
     return R.success();
   }
 
+  /**
+   * 获取文件列表
+   *
+   * @param fileListDTO
+   * @return
+   */
   @SaCheckLogin(type = StpType.USER)
   @PostMapping("/list")
   @ApiOperation("文件列表")
-  public R list(IPage page, Long dirId) {
-    return R.success();
+  public R<IPage<FileVO>> list(@RequestBody FileListDTO fileListDTO) {
+    return R.success(fileService.listFiles(fileListDTO));
   }
 }

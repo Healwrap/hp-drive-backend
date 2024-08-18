@@ -1,4 +1,4 @@
-package cn.pepedd.drive.entity.dto;
+package cn.pepedd.drive.entity.dto.userInfo;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

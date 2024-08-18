@@ -1,4 +1,4 @@
-package cn.pepedd.drive.entity.dto;
+package cn.pepedd.drive.entity.dto.multipartfile;
 
 import lombok.Data;
 

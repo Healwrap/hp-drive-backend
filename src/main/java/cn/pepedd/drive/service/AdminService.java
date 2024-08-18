@@ -1,6 +1,6 @@
 package cn.pepedd.drive.service;
 
-import cn.pepedd.drive.entity.dto.LoginBodyDTO;
+import cn.pepedd.drive.entity.dto.userAuth.LoginBodyDTO;
 import cn.pepedd.drive.entity.pojo.Admin;
 import cn.pepedd.drive.entity.result.R;
 import com.baomidou.mybatisplus.extension.service.IService;
